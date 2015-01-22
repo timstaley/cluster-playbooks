@@ -1,0 +1,13 @@
+- hosts: '{{ target }}'
+  tasks:
+    - name: Set default user 'niceness'
+      #NB user-group currently hardcoded to 'uucp'
+      sudo: yes
+      lineinfile: >
+        dest=/etc/security/limits.conf
+        line="@uucp   -       priority        5"
+        insertbefore="# End of file"
+        state=present
+        
+      
+
