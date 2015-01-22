@@ -1,10 +1,13 @@
-- hosts: '{{ target }}'
+- hosts: '{{ target }}'  
+  vars: 
+    aoflagger-apt-deps: "{{ lookup('file', './aoflagger-deps-list.txt').split() }}"
+
   tasks:
     - name: Install AOFlagger apt dependencies.
       sudo: yes
       action: apt pkg={{item}} state=installed
 #      debug: msg="Would install {{ item }}"
-      with_items: "{{ lookup('file', './aoflagger-deps-list.txt').split() }}"
+      with_items: aoflagger-apt-deps
 
 
     
