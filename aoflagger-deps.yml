@@ -1,13 +1,19 @@
 - hosts: '{{ target }}'  
   vars: 
-    aoflagger-apt-deps: "{{ lookup('file', './aoflagger-deps-list.txt').split() }}"
+    aoflagger_apt_deps: "{{ lookup('file', './aoflagger-deps-list.txt').split() }}"
 
   tasks:
-    - name: Install AOFlagger apt dependencies.
-      sudo: yes
-      action: apt pkg={{item}} state=installed
-#      debug: msg="Would install {{ item }}"
-      with_items: aoflagger-apt-deps
+#  - name: Print list of packages
+#    debug: msg="Would install {{item}}"
+#    with_items: aoflagger_apt_deps
+#    tags: debug
+
+  - name: Install AOFlagger apt dependencies.
+    sudo: yes
+    action: apt pkg={{item}} state=installed
+    with_items: aoflagger_apt_deps
+
+
 
 
     
